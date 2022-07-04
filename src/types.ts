@@ -20,13 +20,34 @@ export interface Article {
 	url: string,
 	content: string,
 	contentParts: Children,
-	stats: Stats,
+	stats: WordStats,
+}
+
+export type GameStats = {
+	solved: boolean,
+	guesses: number,
+	accuracy: number,
 }
 
 export type Stats = {
+	[ id: string ]: GameStats,
+}
+
+export type WordStats = {
 	[ word: string ]: number,
 }
 
 export type Guesses = {
 	[ word: string ]: true,
+};
+
+export interface Game {
+	number: number,
+	date: string,
+	title: string,
+	category: string,
+};
+
+export type GameMap = {
+	[ date: string ]: Game,
 };

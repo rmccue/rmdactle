@@ -1,12 +1,28 @@
+import { Game } from './types';
+
 import './Header.css';
 
-export default function Header() {
+interface Props {
+	game: Game | null,
+	onChangeGame(): void,
+}
+
+export default function Header( props: Props ) {
 	return (
 		<header className="Header">
 			<p>
 				Rmdactle
 			</p>
-			<p>#42</p>
+			{ props.game && (
+				<p>
+					<button
+						type="button"
+						onClick={ props.onChangeGame }
+					>
+						#{ props.game.number } ({ props.game.date })
+					</button>
+				</p>
+			) }
 		</header>
 	);
 }

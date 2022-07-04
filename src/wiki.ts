@@ -1,6 +1,6 @@
 import deburr from 'lodash/deburr';
 
-import { Article, Block, Children, Stats, Text } from './types';
+import { Article, Block, Children, Text, WordStats } from './types';
 import { tokenize } from './util';
 
 const stripElements = [
@@ -54,7 +54,7 @@ const stripElements = [
 	'.cs1-ws-icon',
 ].join( ', ');
 
-function parseContent( text: string, stats: Stats ) {
+function parseContent( text: string, stats: WordStats ) {
 	// Strip some elements.
 	let cleaned = text.replace( /<style.*<\/style>/g, '' );
 	// en dash
@@ -76,7 +76,7 @@ function parseContent( text: string, stats: Stats ) {
 	return parseNode( container, stats );
 }
 
-function parseText( content: string, stats: Stats ) : Text[] {
+function parseText( content: string, stats: WordStats ) : Text[] {
 	const tokenized = tokenize( content );
 	return tokenized.map<Text>( token => {
 		switch ( token.type ) {
@@ -126,7 +126,7 @@ function parseText( content: string, stats: Stats ) : Text[] {
 	} );
 }
 
-function parseNode( node: Node, stats: Stats ): ( Text | Block )[] {
+function parseNode( node: Node, stats: WordStats ): ( Text | Block )[] {
 	if ( node.nodeType === Node.TEXT_NODE ) {
 		return parseText( node.nodeValue || '', stats );
 	}
@@ -194,7 +194,7 @@ export async function fetchArticle( title: string ) : Promise<Article> {
 	const res = await fetch( url );
 	const data: ParsedData = await res.json();
 
-	const stats: Stats = {};
+	const stats: WordStats = {};
 	const titleParts = parseText( data.parse.title, stats );
 	const contentParts = parseContent( data.parse.text, stats );
 

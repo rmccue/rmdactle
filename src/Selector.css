@@ -1,0 +1,48 @@
+.Selector {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	overflow-y: auto;
+	row-gap: 2rem;
+}
+
+.Selector__list {
+	display: grid;
+	grid-template-columns: repeat( 3, 180px );
+	column-gap: 1rem;
+	row-gap: 1rem;
+}
+
+.Selector__game {
+	background: transparent;
+	color: inherit;
+	border: 1px solid currentColor;
+	border-radius: 5px;
+	min-width: 10em;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	row-gap: 1rem;
+	height: 180px;
+	padding: 1rem 0;
+	cursor: pointer;
+}
+
+.Selector__game-number {
+	font-size: 1.5em;
+}
+
+
+.Selector__game--today {
+	padding: 2rem;
+	width: calc( 180px * 3 + 1rem + 1rem );
+}
+
+.Selector__game--started {
+	background: #6654f2;
+}
+
+.Selector__game--solved {
+	background: #2ecc40;
+	color: #000;
+}

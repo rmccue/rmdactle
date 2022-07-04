@@ -2,18 +2,21 @@ import deburr from 'lodash/deburr';
 import { FormEvent, useEffect, useState } from 'react';
 
 import Content from './Content';
+import Footer from './Footer';
 import Sidebar from './Sidebar';
-import { Article } from './types';
+import { Article, Game, GameStats } from './types';
 import { isStopword, isValidGuess } from './util';
 
 interface Props {
 	article: Article | null,
+	game: Game,
+	guesses: string[],
+	onSetGuesses( guesses: string[] ): void,
+	onSolve( stats: GameStats ): void,
 }
 
-export default function Game( props: Props ) {
-	const { article } = props;
-	const [ guesses, setGuesses ] = useState<string[]>( [] );
-	const [ nextGuess, setNextGuess ] = useState<string>( '' );
+export default function GameComponent( props: Props ) {
+	const { article, guesses } = props;
 	const [ selectedGuess, setSelectedGuess ] = useState<string | null>( null );
 	const [ selectedGuessIndex, setSelectedGuessIndex ] = useState<number>( 0 );
 	const [ isSolved, setIsSolved ] = useState<boolean>( false );
@@ -34,11 +37,13 @@ export default function Game( props: Props ) {
 			return;
 		}
 
-		alert( `Solved after ${ guesses.length } guesses` );
-
 		const found = guesses.reduce( ( hits, guess ) => article.stats[ guess ] > 0 ? hits + 1 : hits, 0 );
-		const accuracy = ( ( found / guesses.length ) * 100 ).toFixed(2);
-		alert( `${ accuracy }% accuracy` );
+		const accuracy = found / guesses.length;
+		props.onSolve( {
+			accuracy,
+			guesses: guesses.length,
+			solved: true,
+		} );
 	}, [ detectSolved ] );
 
 	const onSelectGuess = ( guess: string ) => {
@@ -62,8 +67,7 @@ export default function Game( props: Props ) {
 
 	};
 
-	const onSubmit = ( e: FormEvent ) => {
-		e.preventDefault();
+	const onSubmit = ( nextGuess: string, clear: () => void ) => {
 		if ( detectSolved ) {
 			return;
 		}
@@ -81,7 +85,7 @@ export default function Game( props: Props ) {
 		}
 
 		// Clear input.
-		setNextGuess( '' );
+		clear();
 
 		if ( isStopword( normGuess ) ) {
 			alert( 'Stopword; no need to guess this!' );
@@ -95,7 +99,7 @@ export default function Game( props: Props ) {
 		}
 
 		// Add to guesses.
-		setGuesses( [ ...guesses, normGuess ] );
+		props.onSetGuesses( [ ...guesses, normGuess ] );
 		onSelectGuess( normGuess );
 	};
 

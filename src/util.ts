@@ -1,7 +1,12 @@
 import { eng } from 'stopword';
+import pickBy from 'lodash/pickBy';
+import { DateTime } from 'luxon';
 import { tokenize as baseTokenize } from 'string-punctuation-tokenizer';
 
-import { Guesses } from './types';
+import _gameData from './data.json';
+import { Game, GameMap, Guesses } from './types';
+
+const gameData: GameMap = _gameData;
 
 export const indexWords = ( words: string[] ) => words.reduce<Guesses>( ( indexed, word ) => ( { ...indexed, [ word ]: true } ), {} );
 export const indexedStops = indexWords( eng );
@@ -28,4 +33,24 @@ export function isValidGuess( guess: string ) {
 	}
 
 	return tokens[0].type === 'word';
+}
+
+export function getCurrentGame() {
+	return DateTime.now().toISODate();
+}
+
+export function getGame( id: string ): Game | null {
+	return gameData[ id ] || null;
+}
+
+/**
+ * Get all games which have unlocked.
+ */
+export function getUnlockedGames() {
+	const current = gameData[ getCurrentGame() ];
+	if ( ! current ) {
+		return {};
+	}
+
+	return pickBy( gameData, game => game.number <= current.number );
 }
