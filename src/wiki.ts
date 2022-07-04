@@ -208,7 +208,7 @@ export async function fetchArticle( title: string ) : Promise<Article> {
 	return {
 		title: data.parse.title,
 		titleParts,
-		url: '',
+		url: `https://en.wikipedia.org/wiki/${ title }`,
 		content: '',
 		contentParts,
 		stats,
