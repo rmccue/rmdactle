@@ -32,13 +32,23 @@ const SelectableGame = ( props: GameProps ) => (
 		type="button"
 		onClick={ props.onSelect }
 	>
-		<span className="Selector__game-number">#{ props.game.number }</span>
+		<span className="Selector__game-number">
+			#{ props.game.number }
+		</span>
 		<span className="Selector__game-date">
 			{ props.isToday ? 'Play Today' : props.game.date }
 		</span>
 		{ props.stats[ props.game.date ] ? (
 			<span className="Selector__game-progress">
+				{ props.stats[ props.game.date ]?.solved && (
+					<span className="Selector__game--solved">✅</span>
+				) }
+				{ ' ' }
 				{ _n( '1 guess', `${ props.stats[ props.game.date ].guesses } guesses`, props.stats[ props.game.date ].guesses ) }
+				{ ' ' }
+				{ props.stats[ props.game.date ]?.solved && (
+					<span className="Selector__game--accuracy">({ ( props.stats[ props.game.date ].accuracy * 100 ).toFixed( 2 ) }%)</span>
+				) }
 			</span>
 		) : null }
 	</button>
