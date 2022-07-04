@@ -144,8 +144,15 @@ function parseNode( node: Node, stats: WordStats ): ( Text | Block )[] {
 		case 'B':
 		case 'A':
 		case 'SMALL':
-			// Strip.
+		case 'BIG':
+		case 'CITE':
+			// Ignore, deal with children.
 			return children;
+
+		case 'BDI':
+		case 'DL':
+			// Strip.
+			return [];
 
 		case 'P':
 		case 'H1':
