@@ -1,26 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
+import { useEffect, useState } from 'react';
+
+import Game from './Game';
+import Header from './Header';
+import { Article } from './types';
+import { fetchArticle } from './wiki';
+
 import './App.css';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const [ article, setArticle ] = useState<Article | null>( null );
+
+	useEffect( () => {
+		fetchArticle( 'Analytical_chemistry' ).then( setArticle );
+	}, [] );
+
+	return (
+		<div className="App">
+			<Header />
+			<Game
+				article={ article }
+			/>
+		</div>
+	)
 }
 
 export default App;

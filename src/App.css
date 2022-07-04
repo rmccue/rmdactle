@@ -1,38 +1,75 @@
 .App {
-  text-align: center;
+	background: #212529;
+	color: #fff;
+	height: 100%;
+	max-height: 100%;
+	overflow: hidden;
+	display: grid;
+	grid-template-rows: min-content auto;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.Header {
+	/* grid-area: header; */
+	padding: 0.25rem 0.75rem;
+	display: grid;
+	grid-template: "primary secondary" / auto min-content;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.Game {
+	display: grid;
+	overflow: hidden;
+	grid-template:
+		"article sidebar"
+		"footer footer"
+		/ auto 30%;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.Content {
+	background: #0f0f0f;
+	color: #989898;
+	grid-area: article;
+	padding: 0.75rem;
 }
 
-.App-link {
-  color: #61dafb;
+.Sidebar {
+	grid-area: sidebar;
+	overflow-y: auto;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.Sidebar__guesses {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.Sidebar__guesses th,
+.Sidebar__guesses td {
+	padding: 0.75em 0.5em;
+	box-shadow: inset 0 0 0 9999px var(--bs-table-accent-bg);
+}
+
+.Sidebar__guesses thead th {
+	border-bottom: 1px solid #fff;
+}
+
+.Sidebar__guesses td {
+	cursor: pointer;
+}
+
+.Sidebar__guess-selected {
+	background: #e2e3e5;
+	color: #000;
+}
+
+.Footer {
+	grid-area: footer;
+	display: flex;
+	padding: 1rem;
+	justify-content: center;
+	align-items: center;
+}
+
+.Footer input,
+.Footer button {
+	font-size: 18px;
+	padding: 0.5em 1em;
 }

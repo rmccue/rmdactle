@@ -1,0 +1,21 @@
+.Content {
+	overflow-y: scroll;
+	font: 18px/1.5 SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
+}
+
+.Content a {
+	color: inherit;
+}
+
+.Content__redacted {
+	background: #989898;
+}
+
+.Content__selected {
+	background: #00585e;
+}
+
+.Content__highlighted {
+	background: #00becc;
+	color: #0f0f0f;
+}
