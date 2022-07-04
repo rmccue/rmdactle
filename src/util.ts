@@ -1,6 +1,6 @@
-import { eng } from 'stopword';
 import pickBy from 'lodash/pickBy';
 import { DateTime } from 'luxon';
+import eng from './stopwords.json';
 import { tokenize as baseTokenize } from 'string-punctuation-tokenizer';
 
 import _gameData from './data.json';
