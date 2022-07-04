@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import GameComponent from './Game';
 import Header from './Header';
 import { Article, Game } from './types';
-import { getCurrentGame, getGame, getUnlockedGames } from './util';
 import { fetchArticle } from './wiki';
 
 import './App.css';
@@ -30,7 +29,6 @@ type Progress = {
 
 function App() {
 	const [ article, setArticle ] = useState<Article | null>( null );
-	const [ gameId, setGameId ] = useState<string>( getCurrentGame() );
 	const [ game, setGame ] = useState<Game | null>( null );
 	const [ progress, setProgress ] = useState<Progress>( {} );
 	const [ didLoad, setDidLoad ] = useState<boolean>( false );
@@ -112,9 +110,13 @@ function App() {
 	};
 
 	const onSolve = ( gameStats: GameStats ) => {
+		if ( ! game ) {
+			return;
+		}
+
 		const nextStats: Stats = {
 			...stats,
-			[ gameId ]: {
+			[ game.date ]: {
 				...gameStats,
 				solved: true,
 			},
