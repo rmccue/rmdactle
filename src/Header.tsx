@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import { Game } from './types';
 
 import './Header.css';
@@ -8,10 +10,15 @@ interface Props {
 }
 
 export default function Header( props: Props ) {
+	const [ reveal, setReveal ] = useState<boolean>( false );
 	return (
 		<header className="Header">
-			<p>
-				Rmdactle
+			<p onClick={ () => setReveal( ! reveal ) }>
+				{ reveal ? (
+					'Rmdactle'
+				) : (
+					'R\u2588dactle'
+				) }
 			</p>
 			{ props.game && (
 				<p>
