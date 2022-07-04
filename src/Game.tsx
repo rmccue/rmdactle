@@ -124,25 +124,10 @@ export default function GameComponent( props: Props ) {
 				onSelectGuess={ onSelectGuess }
 			/>
 
-			<form
-				className="Footer"
+			<Footer
+				solved={ detectSolved }
 				onSubmit={ onSubmit }
-			>
-				<button
-					type="button"
-					onClick={ () => document.getElementById( 'Content' )?.scrollTo( {
-						top: 0,
-						behavior: 'smooth',
-					} ) }
-				>▲ Top</button>
-				<input
-					disabled={ detectSolved }
-					type="text"
-					value={ nextGuess }
-					onChange={ e => setNextGuess( e.target.value ) }
-				/>
-				<button type="submit">Guess</button>
-			</form>
+			/>
 		</div>
 	);
 }
