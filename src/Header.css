@@ -1,5 +1,19 @@
 .Header {
-	padding: 0.25rem 0.75rem;
+	padding: 1rem 0.75rem;
 	display: grid;
 	grid-template: "primary secondary" / auto max-content;
+	align-items: baseline;
+}
+
+.Header > p {
+	margin: 0;
+}
+
+.Header__selector {
+	background: transparent;
+	color: inherit;
+	border: 1px solid currentColor;
+	border-radius: 5px;
+	cursor: pointer;
+	padding: 0.5em 1em;
 }

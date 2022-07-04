@@ -16,6 +16,7 @@ export default function Header( props: Props ) {
 			{ props.game && (
 				<p>
 					<button
+						className="Header__selector"
 						type="button"
 						onClick={ props.onChangeGame }
 					>
