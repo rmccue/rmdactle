@@ -8,13 +8,6 @@
 	grid-template-rows: min-content auto;
 }
 
-.Header {
-	/* grid-area: header; */
-	padding: 0.25rem 0.75rem;
-	display: grid;
-	grid-template: "primary secondary" / auto min-content;
-}
-
 .Game {
 	display: grid;
 	overflow: hidden;
