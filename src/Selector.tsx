@@ -3,7 +3,7 @@ import reverse from 'lodash/reverse';
 import sortBy from 'lodash/sortBy';
 
 import { Game, Stats } from './types';
-import { getCurrentGame, getGame, getUnlockedGames } from './util';
+import { getUnlockedGames } from './util';
 
 import './Selector.css';
 
@@ -55,7 +55,6 @@ const SelectableGame = ( props: GameProps ) => (
 );
 
 export default function Selector( props: Props ) {
-	const current = getCurrentGame();
 	const unlocked = getUnlockedGames();
 	const sorted = reverse( sortBy( unlocked, game => game.number ) );
 	const today = sorted[0];

@@ -2,7 +2,7 @@ import random from 'random/dist/cjs/index';
 import React, { useEffect } from 'react';
 import seedrandom from 'seedrandom';
 
-import { Article, Block, Guesses, Text } from './types';
+import { Article, Block, Guesses } from './types';
 import { indexedStops, indexWords } from './util';
 
 import './Content.css';
@@ -122,6 +122,7 @@ export default function Content( props: Props ) {
 				<h1>
 					<a
 						href={ props.article.url }
+						rel="noreferrer"
 						target="_blank"
 					>
 						{ props.article.title }

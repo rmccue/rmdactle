@@ -1,5 +1,5 @@
 import deburr from 'lodash/deburr';
-import { FormEvent, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Content from './Content';
 import Footer from './Footer';
@@ -16,10 +16,9 @@ interface Props {
 }
 
 export default function GameComponent( props: Props ) {
-	const { article, guesses } = props;
+	const { article, guesses, onSolve } = props;
 	const [ selectedGuess, setSelectedGuess ] = useState<string | null>( null );
 	const [ selectedGuessIndex, setSelectedGuessIndex ] = useState<number>( 0 );
-	const [ isSolved, setIsSolved ] = useState<boolean>( false );
 
 	const detectSolved = article?.titleParts.reduce( ( solved, part ) => {
 		if ( part.element !== 'text' ) {
@@ -39,12 +38,12 @@ export default function GameComponent( props: Props ) {
 
 		const found = guesses.reduce( ( hits, guess ) => article.stats[ guess ] > 0 ? hits + 1 : hits, 0 );
 		const accuracy = found / guesses.length;
-		props.onSolve( {
+		onSolve( {
 			accuracy,
 			guesses: guesses.length,
 			solved: true,
 		} );
-	}, [ detectSolved ] );
+	}, [ article, detectSolved, guesses, onSolve ] );
 
 	const onSelectGuess = ( guess: string ) => {
 		if ( ! article ) {

@@ -1,4 +1,3 @@
-import memoize from 'lodash/memoize';
 import reverse from 'lodash/reverse';
 import { useEffect } from 'react';
 
