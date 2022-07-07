@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import GameComponent from './Game';
 import Header from './Header';
-import { Article, Game } from './types';
+import { Article, Game, GameStats, Stats } from './types';
 import { fetchArticle } from './wiki';
 
 import './App.css';
@@ -10,16 +10,6 @@ import Selector from './Selector';
 
 const PROGRESS_KEY = 'rmdactle_progress';
 const STATS_KEY = 'rmdactle_stats';
-
-type GameStats = {
-	solved: boolean,
-	guesses: number,
-	accuracy: number,
-}
-
-type Stats = {
-	[ id: string ]: GameStats,
-}
 
 type Progress = {
 	[ id: string ]: {
