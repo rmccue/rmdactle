@@ -32,7 +32,7 @@ export function isValidGuess( guess: string ) {
 		return false;
 	}
 
-	return tokens[0].type === 'word';
+	return tokens[0].type === 'word' || tokens[0].type === 'number';
 }
 
 export function getCurrentGame() {
